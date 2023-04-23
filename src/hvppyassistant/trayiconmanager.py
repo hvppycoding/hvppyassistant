@@ -43,7 +43,7 @@ class TrayIconManager(QObject):
             section_dict[action_info.section].append(action_info.action)
         return section_dict
         
-    def add_action(self, section: int, priority: int, action: QAction):
+    def add_action(self, section: Section, priority: int, action: QAction):
         self.action_info_list.append(ActionInfo(section, priority, action))
         
         
