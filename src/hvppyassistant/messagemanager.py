@@ -6,21 +6,25 @@ from PySide6.QtWidgets import *
 class MessageDialog(QWidget):
     def __init__(self, title: str, message: str, duration: int=2000) -> None:
         super().__init__()
-        self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
+        # Qt.SubWindow: Do not show in the windows' taskbar
+        # https://stackoverflow.com/questions/4055506/qt-hide-taskbar-item
+        self.setWindowFlags(Qt.SubWindow | Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_DeleteOnClose, True)
         self.setLayout(QVBoxLayout())
         self.title = QLabel(title, self)
         bold_font = self.title.font()
+        bold_font.setPointSize(14)
         bold_font.setBold(True)
         self.title.setFont(bold_font)
         self.textedit = QTextEdit(self)
+        self.textedit.setFontPointSize(10)
         self.textedit.setReadOnly(True)
         self.textedit.setPlainText(message)
         self.layout().addWidget(self.title)
         self.layout().addWidget(self.textedit)
         self.layout().setContentsMargins(0, 0, 0, 0)
-        self.resize(400, 300)
-        screen_size = QGuiApplication.primaryScreen().geometry()
+        self.resize(400, 256)
+        screen_size = QGuiApplication.primaryScreen().availableGeometry()
         self.move(screen_size.width() - self.width(), screen_size.height() - self.height())
         self.opacity_animation = QPropertyAnimation(self, b"opacity", self)
         self.opacity_animation.finished.connect(self.close)

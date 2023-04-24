@@ -47,7 +47,7 @@ def get_korean_translation(word: str) -> str:
 
     # Extract the Korean translation from the response
     if response_json["items"]: 
-        korean_word = to_string(_change_list_to_string(response_json["items"]))
+        korean_word = to_string(_change_list_to_string(response_json["items"])).strip()
     else:
         korean_word = ""
     return korean_word
