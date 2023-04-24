@@ -57,6 +57,7 @@ def main():
     
     app = QApplication(sys.argv)
     QApplication.setQuitOnLastWindowClosed(False)
+    QCoreApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     
     app.setOrganizationName("hvppycoding")
     app.setApplicationName("hvppyassistant")

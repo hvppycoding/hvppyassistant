@@ -46,11 +46,10 @@ def get_korean_translation(word: str) -> str:
     response_json = json.loads(response.text)
 
     # Extract the Korean translation from the response
-    if response_json["items"]:
+    if response_json["items"]: 
         korean_word = to_string(_change_list_to_string(response_json["items"]))
     else:
         korean_word = ""
-    print(korean_word)
     return korean_word
 
 class DictionaryPlugin(QObject):
@@ -72,4 +71,4 @@ class DictionaryPlugin(QObject):
         clipboard_text: str = self.clipboard_watcher.text().strip().lower()
         if self.is_english_word(clipboard_text):
             definition = get_korean_translation(clipboard_text)
-            self.message_manager.show_message("Dictionary", definition, duration=10000)
+            self.message_manager.show_message("hvppyassistant", definition, duration=2000)
